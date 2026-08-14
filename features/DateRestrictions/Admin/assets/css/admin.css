@@ -1,0 +1,451 @@
+/* Date Picker Blocker for Gravity Forms - Admin styles */
+
+:root {
+    --paxrank-max-width: 1200px;
+    --paxrank-text: #1C1819;
+    --paxrank-accent: #FF3F00;
+    --paxrank-accent-dark: #e63600;
+    --paxrank-muted: #6b7280;
+    --paxrank-soft: rgba(255, 63, 0, 0.05);
+    --paxrank-soft-border: rgba(255, 63, 0, 0.2);
+    --paxrank-soft-input: rgba(255, 63, 0, 0.3);
+}
+
+/* Layout ------------------------------------------------------------ */
+.paxrank-dashboard {
+    max-width: var(--paxrank-max-width);
+}
+
+@media (min-width: 783px) {
+    /*
+     * Notices are printed by PHP outside .wrap and relocated into
+     * .paxrank-dashboard by common.js on ready. Core gives those two positions
+     * different horizontal margins (common.css: `.notice` vs `.wrap .notice`),
+     * so the notice slides 13px sideways as the page finishes loading. Match
+     * the final geometry up front so it does not move.
+     *
+     * The child combinator is what scopes this: once common.js has moved the
+     * notice deeper into the tree the selector stops matching and core's own
+     * `.wrap .notice` takes over. Below 783px core already aligns both
+     * positions, so this must not apply there.
+     */
+    #wpbody-content > .notice,
+    #wpbody-content > div.updated,
+    #wpbody-content > div.error {
+        /* 15px = .wrap's 10px top margin + the 5px the notice keeps once it
+           sits inside .wrap, so the first paint lands on the final Y. */
+        margin-top: 15px;
+        margin-left: 2px;
+        margin-right: 0;
+        /* border-box so max-width caps the rendered width, not the content
+           box: core's padding + 4px accent border would otherwise add 28px. */
+        box-sizing: border-box;
+        max-width: var(--paxrank-max-width);
+    }
+}
+
+/* Header ------------------------------------------------------------ */
+.paxrank-admin-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    line-height: 1.2;
+}
+
+.paxrank-admin-header__logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.paxrank-admin-header__logo {
+    height: 25px;
+    width: auto;
+}
+
+/* Two-class selector so this outranks core's .wrap h1 (23px/400);
+   padding: 0 cancels core's 9px 0 4px inside the flex row. */
+.paxrank-admin-header .paxrank-admin-header__title {
+    color: var(--paxrank-text);
+    font-size: 26px;
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
+}
+
+/* Sections ---------------------------------------------------------- */
+.paxrank-settings-section {
+    background: #fff;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-top: 4px solid var(--paxrank-accent);
+    margin-bottom: 30px;
+}
+
+.paxrank-settings-section h2 {
+    color: var(--paxrank-text);
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.paxrank-settings-section h3 {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Dashicons -----------------------------------------------------------
+ * The base class ships 20px across the board; each context resizes it.
+ * Being an icon font they inherit `color`, so the badge variants and the
+ * danger palette tint themselves with no extra rules.
+ */
+.paxrank-settings-section h2 .dashicons {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+    color: var(--paxrank-accent);
+}
+
+.paxrank-settings-section h3 .dashicons {
+    font-size: 19px;
+    width: 19px;
+    height: 19px;
+    color: var(--paxrank-accent);
+}
+
+/* Add/edit form blocks ---------------------------------------------- */
+.paxrank-add-date-form {
+    background: var(--paxrank-soft);
+    border-radius: 6px;
+    border: 1px solid var(--paxrank-soft-border);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.paxrank-add-date-form input,
+.paxrank-add-date-form select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--paxrank-soft-input);
+    border-radius: 4px;
+    transition: border-color 0.3s ease;
+}
+
+.paxrank-add-date-form input:focus,
+.paxrank-add-date-form select:focus {
+    border-color: var(--paxrank-accent);
+    outline: none;
+}
+
+.paxrank-form-grid {
+    display: grid;
+    gap: 15px;
+    align-items: end;
+}
+
+.paxrank-form-grid--dates { grid-template-columns: repeat(5, 1fr) auto; }
+.paxrank-form-grid--advance { grid-template-columns: 1fr 1fr 1fr 1fr auto; }
+.paxrank-form-grid--weekday { grid-template-columns: 2fr 1fr 1fr 1fr auto; }
+.paxrank-form-grid--settings { grid-template-columns: 1fr 1fr auto; }
+
+.paxrank-field label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.paxrank-date-example {
+    padding: 8px 12px;
+    background: #fff;
+    border: 1px solid var(--paxrank-soft-input);
+    border-radius: 4px;
+    font-family: monospace;
+    font-weight: 600;
+    color: var(--paxrank-accent);
+}
+
+.paxrank-help-box {
+    margin-top: 15px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 4px;
+    font-size: 13px;
+    color: #666;
+}
+
+.paxrank-help-box .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    vertical-align: text-bottom;
+    margin-right: 4px;
+    color: var(--paxrank-accent);
+}
+
+/* Weekday checkboxes ------------------------------------------------ */
+.paxrank-weekday-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+}
+
+.paxrank-weekday-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px;
+    border: 1px solid var(--paxrank-soft-input);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.paxrank-weekday-option:hover { background: rgba(255, 63, 0, 0.1); }
+.paxrank-weekday-option input { width: auto; margin-bottom: 4px; }
+.paxrank-weekday-option span { font-size: 12px; font-weight: 600; }
+
+/* Post type checkboxes ---------------------------------------------- */
+.paxrank-posttypes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.paxrank-posttype-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    border: 1px solid var(--paxrank-soft-input);
+    border-radius: 4px;
+    background: #fff;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.paxrank-posttype-option:hover { background: rgba(255, 63, 0, 0.1); }
+.paxrank-posttype-option input { width: auto; transform: scale(1.2); }
+.paxrank-posttype-option__label { font-weight: 600; }
+.paxrank-posttype-option__slug { color: var(--paxrank-muted); font-size: 12px; }
+
+/* Buttons ----------------------------------------------------------- */
+.paxrank-btn-primary,
+.paxrank-settings-section .button.paxrank-btn-primary {
+    background: var(--paxrank-accent);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.paxrank-btn-primary:hover { background: var(--paxrank-accent-dark); }
+
+.paxrank-btn-danger,
+.paxrank-settings-section .button.paxrank-btn-danger {
+    background: #d32f2f;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Tables ------------------------------------------------------------ */
+.paxrank-table {
+    border: 1px solid var(--paxrank-soft-border);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.paxrank-table thead tr { background: rgba(255, 63, 0, 0.1); }
+.paxrank-table th { padding: 12px 15px; font-weight: 600; color: var(--paxrank-accent); }
+.paxrank-table td { padding: 12px 15px; }
+.paxrank-table tbody tr:hover { background: rgba(255, 63, 0, 0.02); }
+.paxrank-cell-strong { font-weight: 600; }
+
+/* Delete links: core's .button is inline-block, so the icon would sit on
+   the text baseline and blow out .button-small's line-height. */
+.paxrank-delete-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+.paxrank-delete-link .dashicons {
+    font-size: 15px;
+    width: 15px;
+    height: 15px;
+}
+
+/* Scope badges ------------------------------------------------------ */
+.paxrank-badge {
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.paxrank-badge .dashicons {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+}
+
+.paxrank-badge--global { background: #ffebee; color: #d32f2f; }
+.paxrank-badge--form { background: #e8f5e8; color: #2e7d32; }
+.paxrank-badge--field { background: rgba(255, 63, 0, 0.1); color: var(--paxrank-accent); }
+
+/* Table filters ----------------------------------------------------- */
+.paxrank-table-filters {
+    margin-bottom: 15px;
+    padding: 10px;
+    background: #f9f9f9;
+    border-radius: 4px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.paxrank-table-filters label { display: flex; align-items: center; gap: 5px; margin: 0; }
+.paxrank-table-filters span { font-weight: 600; white-space: nowrap; }
+.paxrank-table-filters select,
+.paxrank-table-filters input[type="text"] {
+    padding: 5px 8px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-size: 13px;
+}
+.paxrank-table-filters input[type="text"] { width: 250px; max-width: 100%; }
+.paxrank-table-filters button {
+    padding: 5px 10px;
+    background: var(--paxrank-accent);
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 13px;
+    white-space: nowrap;
+}
+.paxrank-table-filters button:hover { background: var(--paxrank-accent-dark); }
+
+/* Empty states ------------------------------------------------------ */
+.paxrank-empty-state {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+    background: var(--paxrank-soft);
+    border-radius: 6px;
+    border: 1px solid var(--paxrank-soft-border);
+}
+.paxrank-empty-state__icon { margin-bottom: 15px; }
+.paxrank-empty-state__icon .dashicons {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    color: var(--paxrank-accent);
+    opacity: 0.5;
+}
+.paxrank-empty-state h4 { margin: 0 0 10px; }
+.paxrank-empty-state p { margin: 0; }
+
+/* Subpanels / advanced / debug -------------------------------------- */
+.paxrank-subpanel {
+    margin-bottom: 30px;
+    padding: 20px;
+    background: var(--paxrank-soft);
+    border-radius: 6px;
+    border: 1px solid var(--paxrank-soft-border);
+}
+.paxrank-subpanel h3 { margin-top: 0; }
+
+.paxrank-debug-toggle {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+.paxrank-debug-toggle input { transform: scale(1.3); }
+
+.paxrank-debug-panel {
+    display: none;
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
+.paxrank-debug-panel h3 { margin-top: 0; }
+.paxrank-debug-grid {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 10px 20px;
+    margin-bottom: 20px;
+    font-family: monospace;
+    font-size: 13px;
+}
+.paxrank-debug-pre {
+    margin: 0 0 20px;
+    background: #f5f5f5;
+    padding: 10px;
+    border-radius: 3px;
+    overflow-x: auto;
+    font-size: 11px;
+}
+.paxrank-debug-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.paxrank-debug-table th,
+.paxrank-debug-table td { padding: 6px 8px; border: 1px solid #ddd; text-align: left; }
+.paxrank-debug-table thead tr { background: #f0f0f0; }
+
+/* Danger box (uninstall) -------------------------------------------- */
+.paxrank-danger-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    background: #fff2f2;
+    padding: 20px;
+    border-radius: 6px;
+    border: 1px solid #ffbaba;
+}
+.paxrank-danger-box__icon { flex-shrink: 0; }
+.paxrank-danger-box__icon .dashicons {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+    color: #d32f2f;
+}
+.paxrank-danger-box__body h4 { margin: 0 0 15px; color: #d32f2f; }
+.paxrank-danger-text { color: #d32f2f; font-weight: 600; font-size: 13px; }
+.paxrank-danger-text .dashicons {
+    font-size: 15px;
+    width: 15px;
+    height: 15px;
+    vertical-align: text-bottom;
+    margin-right: 2px;
+}
+.paxrank-checkbox-row { display: flex; align-items: center; gap: 10px; cursor: pointer; margin-bottom: 15px; }
+.paxrank-checkbox-row input { transform: scale(1.3); }
+
+/* Utilities --------------------------------------------------------- */
+.paxrank-muted { color: var(--paxrank-muted); }
+
+/* Responsive -------------------------------------------------------- */
+@media (max-width: 782px) {
+    .paxrank-form-grid { grid-template-columns: 1fr !important; }
+    .paxrank-table-filters { flex-direction: column; align-items: stretch; }
+    .paxrank-table-filters input[type="text"] { width: 100%; }
+    .paxrank-blocked-dates-list,
+    .paxrank-advance-restrictions-list,
+    .paxrank-weekday-restrictions-list { overflow-x: auto; }
+}

@@ -1,0 +1,24 @@
+# OS noise
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors / IDEs
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*~
+
+# Tooling that may be run inside the plugin directory
+/vendor/
+/node_modules/
+composer.lock
+package-lock.json
+.phpcs.cache
+.phpunit.result.cache
+
+# Local build/report artifacts
+*.zip
+*.log

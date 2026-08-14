@@ -1,0 +1,70 @@
+/* Date Picker Blocker for Gravity Forms - Frontend styles */
+
+/* Blocked day cell inside the jQuery UI datepicker. */
+.paxrank-blocked-date {
+    background-color: #ffebee !important;
+    color: #d32f2f !important;
+    cursor: not-allowed !important;
+}
+
+.paxrank-blocked-date:hover {
+    background-color: #ffcdd2 !important;
+}
+
+/* Inline "date not available" message shown under a field. */
+.paxrank-blocked-date-message {
+    color: #FF3F00;
+    font-size: 13px;
+    margin-top: 5px;
+    font-weight: 600;
+    animation: paxrank-fade-in 0.3s ease-in;
+}
+
+/* Field highlight while a blocked date is selected. */
+.paxrank-blocked-date-input {
+    border-color: #FF3F00 !important;
+}
+
+@keyframes paxrank-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Server-side validation banner. */
+.paxrank-validation-error {
+    color: #FF3F00;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+/* Preserve stock jQuery UI datepicker header styling (theme-safe). */
+.ui-datepicker .ui-datepicker-header {
+    position: relative;
+    padding: 0.2em 0;
+}
+
+.ui-datepicker .ui-datepicker-title {
+    margin: 0 2.3em;
+    line-height: 1.8em;
+    text-align: center;
+}
+
+/*
+ * DEFENSE-IN-DEPTH — duplicate full-width calendar at the bottom of the page.
+ *
+ * Gravity Forms / jQuery UI append a single shared #ui-datepicker-div to the
+ * end of <body>. Any post-init `.datepicker('option', ...)` call repaints the
+ * calendar into that div while it is closed; if the datepicker theme CSS is
+ * missing or stripped (Bricks, CSS optimizers), the painted div shows as a
+ * full-width block at the page bottom.
+ *
+ * The primary fix lives in date-blocker.js: options are injected through GF's
+ * `gform_datepicker_options_pre_init` filter, so the div is never painted
+ * while hidden. This rule stays as a safety net for the JS fallback path and
+ * for any third-party code that still calls `.datepicker('option', ...)`.
+ * jQuery UI re-shows the div via an inline style on focus, which beats this
+ * non-important rule, so pickers keep working normally.
+ */
+#ui-datepicker-div {
+    display: none;
+}

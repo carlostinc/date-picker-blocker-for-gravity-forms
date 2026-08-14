@@ -1,0 +1,748 @@
+# Copyright (C) PaxRank
+# This file is distributed under the same license as the plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Date Picker Blocker for Gravity Forms 1.0.0\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Domain: date-picker-blocker-for-gravity-forms\n"
+
+#: features/DateRestrictions/Admin/Templates/section-advance.php:105
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: weekday name (e.g. "Monday").
+#: features/DateRestrictions/Frontend/EnqueuingFrontendAssets.php:202
+#: features/DateRestrictions/Rules/CheckingWeekdayRestrictions.php:68
+msgid "%s is not available for bookings. Please choose another day of the week."
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advance.php:96
+#: features/DateRestrictions/Admin/Templates/section-blocked-ranges.php:103
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:114
+msgid "Actions"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advanced-options.php:27
+msgid "Active Content Types"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-blocked-ranges.php:19
+msgid "Add Blocked Date or Range"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-blocked-ranges.php:137
+msgid "Add your first date or range using the form above."
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advance.php:140
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:151
+msgid "Add your first restriction using the form above."
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:79
+msgid "Additional restriction for that specific field"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:78
+msgid "Additional restriction for that specific form"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:76
+msgid "Additive system:"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advance.php:17
+msgid "Advance Notice Restrictions"
+msgstr ""
+
+#: features/DateRestrictions/Admin/HandlingRestrictionsAjax.php:196
+msgid "Advance notice days must be between 0 and 365."
+msgstr ""
+
+#: features/DateRestrictions/Admin/HandlingRestrictionsAjax.php:218
+msgid "Advance notice restriction deleted."
+msgstr ""
+
+#: features/DateRestrictions/Admin/HandlingRestrictionsAjax.php:205
+msgid "Advance notice restriction saved."
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advanced-options.php:24
+msgid "Advanced Options"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-uninstall.php:32
+msgid "All advance notice and weekday restrictions"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:80
+msgid "All applicable restrictions are combined (blocked days add up)."
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-uninstall.php:31
+msgid "All blocked dates and ranges"
+msgstr ""
+
+#: features/DateRestrictions/Admin/DateRestrictionsAdminPage.php:133
+#: features/DateRestrictions/Admin/Templates/section-advance.php:42
+#: features/DateRestrictions/Admin/Templates/section-blocked-ranges.php:49
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:60
+msgid "All date fields"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advance.php:32
+#: features/DateRestrictions/Admin/Templates/section-advance.php:73
+#: features/DateRestrictions/Admin/Templates/section-blocked-ranges.php:39
+#: features/DateRestrictions/Admin/Templates/section-blocked-ranges.php:80
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:50
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:91
+msgid "All forms"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-blocked-ranges.php:59
+msgid "Block"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-blocked-ranges.php:17
+msgid "Blocked Dates and Ranges"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:36
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:109
+msgid "Blocked Days"
+msgstr ""
+
+#: features/DateRestrictions/Admin/HandlingRestrictionsAjax.php:147
+msgid "Blocked date added."
+msgstr ""
+
+#: features/DateRestrictions/Admin/HandlingRestrictionsAjax.php:160
+msgid "Blocked date deleted."
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-blocked-ranges.php:68
+msgid "Blocks ALL date fields on that form"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-blocked-ranges.php:67
+msgid "Blocks ALL forms and date fields"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-blocked-ranges.php:69
+msgid "Blocks only that specific field"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-settings.php:57
+msgid "Changing the format does NOT affect dates already stored in the database"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advanced-options.php:29
+msgid "Choose which content types the plugin should load on, to optimize performance:"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advance.php:84
+#: features/DateRestrictions/Admin/Templates/section-blocked-ranges.php:91
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:102
+msgid "Clear"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-blocked-ranges.php:73
+msgid "Configured Dates and Ranges"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advance.php:66
+msgid "Configured Restrictions"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:84
+msgid "Configured Weekday Restrictions"
+msgstr ""
+
+#: features/DateRestrictions/Admin/DateRestrictionsAdminPage.php:137
+msgid "Connection error"
+msgstr ""
+
+#: features/DateRestrictions/Admin/SavingPluginSettings.php:102
+msgid "Content type settings saved."
+msgstr ""
+
+#: features/DateRestrictions/Admin/HandlingRestrictionsAjax.php:221
+msgid "Could not delete the advance notice restriction."
+msgstr ""
+
+#: features/DateRestrictions/Admin/HandlingRestrictionsAjax.php:163
+msgid "Could not delete the blocked date."
+msgstr ""
+
+#: features/DateRestrictions/Admin/HandlingRestrictionsAjax.php:264
+msgid "Could not delete the weekday restriction."
+msgstr ""
+
+#: features/DateRestrictions/Admin/DateRestrictionsAdminPage.php:136
+msgid "Could not load fields"
+msgstr ""
+
+#: features/DateRestrictions/Database/SavingAdvanceRestrictions.php:85
+#: features/DateRestrictions/Database/SavingAdvanceRestrictions.php:116
+msgid "Could not update the restriction."
+msgstr ""
+
+#: features/DateRestrictions/Database/SavingWeekdayRestrictions.php:86
+#: features/DateRestrictions/Database/SavingWeekdayRestrictions.php:117
+msgid "Could not update the weekday restriction."
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advance.php:94
+#: features/DateRestrictions/Admin/Templates/section-blocked-ranges.php:101
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:112
+msgid "Created By"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advance.php:95
+#: features/DateRestrictions/Admin/Templates/section-blocked-ranges.php:102
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:113
+msgid "Created On"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advanced-options.php:71
+msgid "Current time:"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-settings.php:19
+msgid "DD-MM-YYYY (European with dashes: 25-12-2024)"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-settings.php:16
+msgid "DD/MM/YYYY (European: 25/12/2024)"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advanced-options.php:74
+msgid "Data sent to the frontend (JavaScript)"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-uninstall.php:18
+msgid "Database Cleanup Settings"
+msgstr ""
+
+#. translators: %s: error reported by the database.
+#: features/DateRestrictions/Database/SavingAdvanceRestrictions.php:72
+#: features/DateRestrictions/Database/SavingBlockedRanges.php:80
+#: features/DateRestrictions/Database/SavingWeekdayRestrictions.php:73
+msgid "Database error: %s"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-uninstall.php:34
+msgid "Database tables"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-blocked-ranges.php:27
+msgid "Date (or start)"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-blocked-ranges.php:98
+msgid "Date / Range"
+msgstr ""
+
+#: features/DateRestrictions/Admin/DateRestrictionsAdminPage.php:64
+msgid "Date Blocker"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-settings.php:41
+msgid "Date Example"
+msgstr ""
+
+#: Shared/GravityForms.php:145
+msgid "Date Field #%d"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advanced-options.php:98
+msgid "Date Fields"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-settings.php:32
+msgid "Date Format"
+msgstr ""
+
+#: date-picker-blocker-for-gravity-forms.php:122
+#: features/DateRestrictions/Admin/DateRestrictionsAdminPage.php:63
+#: features/DateRestrictions/Admin/Templates/page-header.php:22
+msgid "Date Picker Blocker for Gravity Forms"
+msgstr ""
+
+#: features/DateRestrictions/Admin/SavingPluginSettings.php:82
+msgid "Date format saved. All new validation will use this format."
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advance.php:25
+#: features/DateRestrictions/Admin/Templates/section-advance.php:91
+msgid "Days of Advance Notice"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advance.php:128
+#: features/DateRestrictions/Admin/Templates/section-blocked-ranges.php:125
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:139
+msgid "Delete"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-uninstall.php:26
+msgid "Delete all data when the plugin is uninstalled"
+msgstr ""
+
+#. translators: %d: number of days of advance notice.
+#: features/DateRestrictions/Admin/Templates/section-advance.php:116
+msgid "Delete the %d day advance notice restriction?"
+msgid_plural "Delete the %d days advance notice restriction?"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: the blocked date or range.
+#: features/DateRestrictions/Admin/Templates/section-blocked-ranges.php:118
+msgid "Delete the block for \"%s\"?"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:138
+msgid "Delete this weekday restriction?"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advance.php:47
+#: features/DateRestrictions/Admin/Templates/section-advance.php:93
+#: features/DateRestrictions/Admin/Templates/section-blocked-ranges.php:54
+#: features/DateRestrictions/Admin/Templates/section-blocked-ranges.php:100
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:65
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:111
+msgid "Description"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advanced-options.php:58
+msgid "Enable debug"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-blocked-ranges.php:32
+msgid "End date (optional)"
+msgstr ""
+
+#: features/DateRestrictions/Admin/DateRestrictionsAdminPage.php:216
+msgid "Field %d"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advance.php:40
+#: features/DateRestrictions/Admin/Templates/section-blocked-ranges.php:47
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:58
+msgid "Field (optional)"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advance.php:30
+#: features/DateRestrictions/Admin/Templates/section-blocked-ranges.php:37
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:48
+msgid "Form (optional)"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advance.php:61
+#: features/DateRestrictions/Admin/Templates/section-blocked-ranges.php:69
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:79
+msgid "Form + field:"
+msgstr ""
+
+#. translators: %d: Gravity Forms form ID, shown when the form title is unavailable.
+#: features/DateRestrictions/Admin/DateRestrictionsAdminPage.php:206
+msgid "Form ID %d"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advance.php:60
+#: features/DateRestrictions/Admin/Templates/section-blocked-ranges.php:68
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:78
+msgid "Form only:"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advance.php:71
+#: features/DateRestrictions/Admin/Templates/section-blocked-ranges.php:78
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:89
+msgid "Form:"
+msgstr ""
+
+#: features/DateRestrictions/Admin/DateRestrictionsAdminPage.php:250
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:21
+msgid "Fri"
+msgstr ""
+
+#: features/DateRestrictions/Frontend/EnqueuingFrontendAssets.php:209
+#: features/DateRestrictions/Rules/CheckingWeekdayRestrictions.php:62
+msgid "Friday"
+msgstr ""
+
+#: features/DateRestrictions/Admin/DateRestrictionsAdminPage.php:201
+msgid "Global"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-settings.php:24
+msgid "Global Date Format Settings"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advance.php:59
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:77
+msgid "Global restriction for ALL forms"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advance.php:74
+#: features/DateRestrictions/Admin/Templates/section-blocked-ranges.php:81
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:92
+msgid "Global restrictions only"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advanced-options.php:91
+msgid "Gravity Forms detected"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advanced-options.php:125
+msgid "Gravity Forms is not installed or has no forms."
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-blocked-ranges.php:65
+msgid "How it works:"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-settings.php:58
+msgid "If you are unsure, check how dates display in your forms before changing this"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-settings.php:54
+msgid "Important:"
+msgstr ""
+
+#: features/DateRestrictions/Admin/SavingPluginSettings.php:77
+msgid "Invalid date format."
+msgstr ""
+
+#: features/DateRestrictions/Admin/HandlingRestrictionsAjax.php:176
+msgid "Invalid form ID."
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-settings.php:56
+msgid "It must match the format your Gravity Forms use"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-blocked-ranges.php:66
+msgid "Leave \"End date\" empty to block a single day, or fill it in to block a whole range."
+msgstr ""
+
+#: features/DateRestrictions/Admin/DateRestrictionsAdminPage.php:134
+msgid "Loading fields..."
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-settings.php:20
+msgid "MM-DD-YYYY (US with dashes: 12-25-2024)"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-settings.php:17
+msgid "MM/DD/YYYY (US: 12/25/2024)"
+msgstr ""
+
+#: features/DateRestrictions/Admin/DateRestrictionsAdminPage.php:246
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:17
+msgid "Mon"
+msgstr ""
+
+#: features/DateRestrictions/Frontend/EnqueuingFrontendAssets.php:205
+#: features/DateRestrictions/Rules/CheckingWeekdayRestrictions.php:58
+msgid "Monday"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advance.php:139
+msgid "No advance notice restrictions configured"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-blocked-ranges.php:136
+msgid "No blocked dates"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advanced-options.php:116
+msgid "No date fields"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advance.php:109
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:132
+msgid "No description"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advance.php:59
+#: features/DateRestrictions/Admin/Templates/section-blocked-ranges.php:67
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:77
+msgid "No form or field:"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:150
+msgid "No weekday restrictions configured"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advanced-options.php:68
+msgid "Not installed"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advanced-options.php:51
+msgid "Optimization:"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advance.php:48
+#: features/DateRestrictions/Admin/Templates/section-blocked-ranges.php:55
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:66
+msgid "Optional..."
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-uninstall.php:33
+msgid "Plugin settings"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advanced-options.php:69
+msgid "Plugin version:"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advance.php:58
+msgid "Priority system:"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advance.php:61
+msgid "Restriction for that specific field"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advance.php:60
+msgid "Restriction for that specific form"
+msgstr ""
+
+#: features/DateRestrictions/Admin/DateRestrictionsAdminPage.php:251
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:22
+msgid "Sat"
+msgstr ""
+
+#: features/DateRestrictions/Frontend/EnqueuingFrontendAssets.php:210
+#: features/DateRestrictions/Rules/CheckingWeekdayRestrictions.php:63
+msgid "Saturday"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-settings.php:48
+msgid "Save Format"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advanced-options.php:46
+msgid "Save Settings"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-uninstall.php:42
+msgid "Save Uninstall Settings"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advance.php:92
+#: features/DateRestrictions/Admin/Templates/section-blocked-ranges.php:99
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:110
+msgid "Scope"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-blocked-ranges.php:89
+msgid "Search by date or description..."
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advance.php:82
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:100
+msgid "Search by days or description..."
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advance.php:81
+#: features/DateRestrictions/Admin/Templates/section-blocked-ranges.php:88
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:99
+msgid "Search:"
+msgstr ""
+
+#: features/DateRestrictions/Admin/HandlingRestrictionsAjax.php:53
+msgid "Security check failed."
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advance.php:52
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:70
+msgid "Set Restriction"
+msgstr ""
+
+#: features/DateRestrictions/Admin/DateRestrictionsAdminPage.php:83
+msgid "Settings"
+msgstr ""
+
+#: features/DateRestrictions/Admin/SavingPluginSettings.php:123
+msgid "Settings saved: data will be deleted when the plugin is uninstalled."
+msgstr ""
+
+#: features/DateRestrictions/Admin/SavingPluginSettings.php:124
+msgid "Settings saved: data will be kept when the plugin is uninstalled."
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advanced-options.php:60
+msgid "Shows detailed information for troubleshooting"
+msgstr ""
+
+#: features/DateRestrictions/Enforcement/ValidatingSubmittedDates.php:113
+msgid "Some dates in your selection are unavailable. Please check the highlighted fields."
+msgstr ""
+
+#: features/DateRestrictions/Admin/DateRestrictionsAdminPage.php:245
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:23
+msgid "Sun"
+msgstr ""
+
+#: features/DateRestrictions/Frontend/EnqueuingFrontendAssets.php:204
+#: features/DateRestrictions/Rules/CheckingWeekdayRestrictions.php:57
+msgid "Sunday"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advanced-options.php:64
+msgid "System Information"
+msgstr ""
+
+#: features/DateRestrictions/Admin/HandlingRestrictionsAjax.php:122
+msgid "The date is required."
+msgstr ""
+
+#: features/DateRestrictions/Admin/HandlingRestrictionsAjax.php:134
+msgid "The end date is not valid."
+msgstr ""
+
+#: features/DateRestrictions/Admin/HandlingRestrictionsAjax.php:137
+msgid "The end date must be the same as or later than the start date."
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advance.php:62
+msgid "The most specific restriction wins: field > form > global (they do not stack)."
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advanced-options.php:51
+msgid "The plugin will only load on single pages of the selected content types."
+msgstr ""
+
+#: features/DateRestrictions/Frontend/EnqueuingFrontendAssets.php:199
+#: features/DateRestrictions/Rules/CheckingBlockedRanges.php:39
+msgid "The selected date is unavailable. Please choose another date."
+msgstr ""
+
+#: features/DateRestrictions/Admin/HandlingRestrictionsAjax.php:127
+msgid "The start date is not valid."
+msgstr ""
+
+#: features/DateRestrictions/Admin/DateRestrictionsAdminPage.php:135
+msgid "There are no date fields on this form"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-uninstall.php:38
+msgid "This action cannot be undone. If you leave this option unchecked, your data is kept even after uninstalling the plugin."
+msgstr ""
+
+#: features/DateRestrictions/Database/SavingBlockedRanges.php:89
+msgid "This date or range is already blocked for this scope."
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-settings.php:55
+msgid "This format applies to ALL plugin dates (blocks, restrictions, validation)"
+msgstr ""
+
+#: date-picker-blocker-for-gravity-forms.php:124
+msgid "This plugin requires Gravity Forms to be installed and active."
+msgstr ""
+
+#: features/DateRestrictions/Admin/DateRestrictionsAdminPage.php:249
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:20
+msgid "Thu"
+msgstr ""
+
+#: features/DateRestrictions/Frontend/EnqueuingFrontendAssets.php:208
+#: features/DateRestrictions/Rules/CheckingWeekdayRestrictions.php:61
+msgid "Thursday"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advanced-options.php:97
+msgid "Title"
+msgstr ""
+
+#: features/DateRestrictions/Admin/DateRestrictionsAdminPage.php:247
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:18
+msgid "Tue"
+msgstr ""
+
+#: features/DateRestrictions/Frontend/EnqueuingFrontendAssets.php:206
+#: features/DateRestrictions/Rules/CheckingWeekdayRestrictions.php:59
+msgid "Tuesday"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-uninstall.php:13
+msgid "Uninstall Options"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-blocked-ranges.php:112
+msgid "Unknown"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-advance.php:110
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:133
+msgid "Unknown user"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-uninstall.php:38
+msgid "WARNING:"
+msgstr ""
+
+#: features/DateRestrictions/Admin/DateRestrictionsAdminPage.php:248
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:19
+msgid "Wed"
+msgstr ""
+
+#: features/DateRestrictions/Frontend/EnqueuingFrontendAssets.php:207
+#: features/DateRestrictions/Rules/CheckingWeekdayRestrictions.php:60
+msgid "Wednesday"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-weekday.php:28
+msgid "Weekday Restrictions"
+msgstr ""
+
+#: features/DateRestrictions/Admin/HandlingRestrictionsAjax.php:261
+msgid "Weekday restriction deleted."
+msgstr ""
+
+#: features/DateRestrictions/Admin/HandlingRestrictionsAjax.php:248
+msgid "Weekday restriction saved."
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-uninstall.php:30
+msgid "What does this include?"
+msgstr ""
+
+#: features/DateRestrictions/Admin/Templates/section-settings.php:18
+msgid "YYYY-MM-DD (ISO: 2024-12-25)"
+msgstr ""
+
+#: features/DateRestrictions/Frontend/EnqueuingFrontendAssets.php:200
+#: features/DateRestrictions/Rules/CheckingAdvanceRestrictions.php:64
+msgid "You cannot select dates in the past. Please choose a future date."
+msgstr ""
+
+#: features/DateRestrictions/Admin/DateRestrictionsAdminPage.php:148
+msgid "You do not have permission to access this page."
+msgstr ""
+
+#: features/DateRestrictions/Admin/HandlingRestrictionsAjax.php:57
+#: features/DateRestrictions/Admin/HandlingRestrictionsAjax.php:71
+#: features/DateRestrictions/Admin/SavingPluginSettings.php:44
+msgid "You do not have permission to perform this action."
+msgstr ""
+
+#. translators: %d: number of days of required advance notice.
+#: features/DateRestrictions/Frontend/EnqueuingFrontendAssets.php:213
+#: features/DateRestrictions/Frontend/EnqueuingFrontendAssets.php:220
+#: features/DateRestrictions/Rules/CheckingAdvanceRestrictions.php:71
+msgid "You must book at least %d day in advance. Please choose a later date."
+msgid_plural "You must book at least %d days in advance. Please choose a later date."
+msgstr[0] ""
+msgstr[1] ""
+
+#: features/DateRestrictions/Admin/HandlingRestrictionsAjax.php:239
+msgid "You must select at least one weekday to block."
+msgstr ""
