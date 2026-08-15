@@ -85,13 +85,6 @@ Only if you ask it to. Data deletion is opt-in, under Uninstall Options. If you 
 
 Only the visual layer. The restrictions the date picker greys out are printed into the page, so a cached page keeps showing the restrictions that existed when it was cached — until the cache is purged, a newly added restriction may not be greyed out yet (or a removed one may still look blocked). Enforcement is unaffected: form submissions are POST requests, which bypass the page cache, and the server validates every submission against the live restrictions. If you change restrictions often, purge your page cache after saving, or exclude your booking pages from caching.
 
-== Screenshots ==
-
-1. The Date Blocker settings screen, showing the header and the blocked dates and ranges section.
-2. Adding a blocked date range scoped to a single form and field.
-3. Advance notice and weekday restrictions with their configured lists.
-4. Advanced options: content types, debug panel and uninstall settings.
-
 == Changelog ==
 
 = 1.0.1 =
