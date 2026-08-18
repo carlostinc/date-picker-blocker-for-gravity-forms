@@ -5,9 +5,9 @@
  * @package Paxrank\DateBlocker
  */
 
-namespace Paxrank\DateBlocker\DateRestrictions\Rules;
+namespace Paxrank\DateBlocker\Rules;
 
-use Paxrank\DateBlocker\DateRestrictions\Database\ReadingBlockedRanges;
+use Paxrank\DateBlocker\Database\ReadingBlockedRanges;
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;

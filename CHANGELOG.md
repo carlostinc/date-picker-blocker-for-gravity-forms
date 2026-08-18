@@ -62,6 +62,23 @@ de dos límites del análisis estático.
 - **Requiere WordPress 6.2 o superior** (antes 6.0), que es donde se introdujo el
   placeholder `%i`.
 
+### Arquitectura
+- **`features/DateRestrictions/` se aplana en `features/`.** La arquitectura
+  Vertical Slice preveía varias slices, pero solo llegó a existir una: ese nivel
+  intermedio era una carpeta con un único hijo y un segmento de namespace que no
+  distinguía de nada. `Admin/`, `Database/`, `Enforcement/`, `Frontend/` y
+  `Rules/` cuelgan ahora directamente de `features/`, y el namespace acompaña al
+  movimiento (`Paxrank\DateBlocker\Admin`, `…\Database`, …), con el handler en
+  la raíz `Paxrank\DateBlocker`. `Shared/` no se mueve: no es una feature.
+- **El autoloader deja de depender del orden de sus raíces.** Al aplanar, los
+  prefijos pasan a solaparse (`Paxrank\DateBlocker\` contiene a
+  `…\DateBlocker\Shared\`) y el bucle abandonaba en cuanto un prefijo coincidía,
+  encontrase o no el archivo — con lo que `Shared\DateFormat` se habría buscado
+  solo en `features/Shared/` y habría fallado. Ahora solo se detiene cuando
+  encuentra el archivo de verdad, y sigue probando las demás raíces si no.
+- Cambio puramente interno: no varían el comportamiento ni los nombres públicos
+  (tablas, opciones, nonces, acciones `admin_post_*`, globals JS).
+
 ### Empaquetado
 - **Fuera los archivos de traducción del paquete** (`.po`, `.mo` y la plantilla
   `.pot`), a petición de la revisión de WordPress.org. Los plugins alojados en

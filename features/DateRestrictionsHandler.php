@@ -9,14 +9,14 @@
  * @package Paxrank\DateBlocker
  */
 
-namespace Paxrank\DateBlocker\DateRestrictions;
+namespace Paxrank\DateBlocker;
 
-use Paxrank\DateBlocker\DateRestrictions\Admin\DateRestrictionsAdminPage;
-use Paxrank\DateBlocker\DateRestrictions\Admin\HandlingRestrictionsAjax;
-use Paxrank\DateBlocker\DateRestrictions\Admin\SavingPluginSettings;
-use Paxrank\DateBlocker\DateRestrictions\Database\CleaningUpOnFormDelete;
-use Paxrank\DateBlocker\DateRestrictions\Enforcement\ValidatingSubmittedDates;
-use Paxrank\DateBlocker\DateRestrictions\Frontend\EnqueuingFrontendAssets;
+use Paxrank\DateBlocker\Admin\DateRestrictionsAdminPage;
+use Paxrank\DateBlocker\Admin\HandlingRestrictionsAjax;
+use Paxrank\DateBlocker\Admin\SavingPluginSettings;
+use Paxrank\DateBlocker\Database\CleaningUpOnFormDelete;
+use Paxrank\DateBlocker\Enforcement\ValidatingSubmittedDates;
+use Paxrank\DateBlocker\Frontend\EnqueuingFrontendAssets;
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;

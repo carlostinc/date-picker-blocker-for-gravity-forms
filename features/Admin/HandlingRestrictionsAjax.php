@@ -10,11 +10,11 @@
  * @package Paxrank\DateBlocker
  */
 
-namespace Paxrank\DateBlocker\DateRestrictions\Admin;
+namespace Paxrank\DateBlocker\Admin;
 
-use Paxrank\DateBlocker\DateRestrictions\Database\SavingAdvanceRestrictions;
-use Paxrank\DateBlocker\DateRestrictions\Database\SavingBlockedRanges;
-use Paxrank\DateBlocker\DateRestrictions\Database\SavingWeekdayRestrictions;
+use Paxrank\DateBlocker\Database\SavingAdvanceRestrictions;
+use Paxrank\DateBlocker\Database\SavingBlockedRanges;
+use Paxrank\DateBlocker\Database\SavingWeekdayRestrictions;
 use Paxrank\DateBlocker\Shared\DateFormat;
 use Paxrank\DateBlocker\Shared\GravityForms;
 

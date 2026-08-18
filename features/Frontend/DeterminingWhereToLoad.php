@@ -5,7 +5,7 @@
  * @package Paxrank\DateBlocker
  */
 
-namespace Paxrank\DateBlocker\DateRestrictions\Frontend;
+namespace Paxrank\DateBlocker\Frontend;
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;

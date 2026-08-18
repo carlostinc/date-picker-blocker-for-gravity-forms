@@ -7,9 +7,9 @@
  * @var bool              $gf_available Whether Gravity Forms is active.
  */
 
-use Paxrank\DateBlocker\DateRestrictions\Database\ReadingAdvanceRestrictions;
-use Paxrank\DateBlocker\DateRestrictions\Database\ReadingBlockedRanges;
-use Paxrank\DateBlocker\DateRestrictions\Database\ReadingWeekdayRestrictions;
+use Paxrank\DateBlocker\Database\ReadingAdvanceRestrictions;
+use Paxrank\DateBlocker\Database\ReadingBlockedRanges;
+use Paxrank\DateBlocker\Database\ReadingWeekdayRestrictions;
 use Paxrank\DateBlocker\Shared\DateFormat;
 use Paxrank\DateBlocker\Shared\GravityForms;
 

@@ -8,7 +8,7 @@
  * @package Paxrank\DateBlocker
  */
 
-namespace Paxrank\DateBlocker\DateRestrictions\Admin;
+namespace Paxrank\DateBlocker\Admin;
 
 use Paxrank\DateBlocker\Shared\DateFormat;
 

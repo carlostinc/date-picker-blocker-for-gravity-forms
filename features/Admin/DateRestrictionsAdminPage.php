@@ -8,11 +8,11 @@
  * @package Paxrank\DateBlocker
  */
 
-namespace Paxrank\DateBlocker\DateRestrictions\Admin;
+namespace Paxrank\DateBlocker\Admin;
 
-use Paxrank\DateBlocker\DateRestrictions\Database\ReadingAdvanceRestrictions;
-use Paxrank\DateBlocker\DateRestrictions\Database\ReadingBlockedRanges;
-use Paxrank\DateBlocker\DateRestrictions\Database\ReadingWeekdayRestrictions;
+use Paxrank\DateBlocker\Database\ReadingAdvanceRestrictions;
+use Paxrank\DateBlocker\Database\ReadingBlockedRanges;
+use Paxrank\DateBlocker\Database\ReadingWeekdayRestrictions;
 use Paxrank\DateBlocker\Shared\DateFormat;
 use Paxrank\DateBlocker\Shared\GravityForms;
 
@@ -101,7 +101,7 @@ class DateRestrictionsAdminPage {
             return;
         }
 
-        $base = PAXRANK_GF_DATE_BLOCKER_PLUGIN_URL . 'features/DateRestrictions/Admin/assets/';
+        $base = PAXRANK_GF_DATE_BLOCKER_PLUGIN_URL . 'features/Admin/assets/';
 
         // wp-admin already loads dashicons, but the screen's icons depend on
         // it, so declare it rather than rely on that.

@@ -7,7 +7,7 @@
  * @var object[]          $blocked Blocked date/range rows.
  */
 
-use Paxrank\DateBlocker\DateRestrictions\Admin\DateRestrictionsAdminPage;
+use Paxrank\DateBlocker\Admin\DateRestrictionsAdminPage;
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;

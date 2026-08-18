@@ -12,11 +12,11 @@
  * @package Paxrank\DateBlocker
  */
 
-namespace Paxrank\DateBlocker\DateRestrictions\Frontend;
+namespace Paxrank\DateBlocker\Frontend;
 
-use Paxrank\DateBlocker\DateRestrictions\Database\ReadingAdvanceRestrictions;
-use Paxrank\DateBlocker\DateRestrictions\Database\ReadingBlockedRanges;
-use Paxrank\DateBlocker\DateRestrictions\Database\ReadingWeekdayRestrictions;
+use Paxrank\DateBlocker\Database\ReadingAdvanceRestrictions;
+use Paxrank\DateBlocker\Database\ReadingBlockedRanges;
+use Paxrank\DateBlocker\Database\ReadingWeekdayRestrictions;
 use Paxrank\DateBlocker\Shared\DateFormat;
 use Paxrank\DateBlocker\Shared\GravityForms;
 use DateTimeImmutable;
@@ -91,7 +91,7 @@ class EnqueuingFrontendAssets {
             return; // Forms on the page, but none with date fields.
         }
 
-        $base    = PAXRANK_GF_DATE_BLOCKER_PLUGIN_URL . 'features/DateRestrictions/Frontend/assets/';
+        $base    = PAXRANK_GF_DATE_BLOCKER_PLUGIN_URL . 'features/Frontend/assets/';
         $version = PAXRANK_GF_DATE_BLOCKER_VERSION;
 
         wp_enqueue_style( self::HANDLE, $base . 'css/date-blocker.css', array(), $version );

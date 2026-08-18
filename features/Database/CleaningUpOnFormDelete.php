@@ -8,7 +8,7 @@
  * @package Paxrank\DateBlocker
  */
 
-namespace Paxrank\DateBlocker\DateRestrictions\Database;
+namespace Paxrank\DateBlocker\Database;
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;

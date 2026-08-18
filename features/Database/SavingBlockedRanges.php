@@ -5,7 +5,7 @@
  * @package Paxrank\DateBlocker
  */
 
-namespace Paxrank\DateBlocker\DateRestrictions\Database;
+namespace Paxrank\DateBlocker\Database;
 
 use WP_Error;
 

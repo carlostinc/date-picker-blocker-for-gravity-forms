@@ -15,11 +15,11 @@
  * @package Paxrank\DateBlocker
  */
 
-namespace Paxrank\DateBlocker\DateRestrictions\Enforcement;
+namespace Paxrank\DateBlocker\Enforcement;
 
-use Paxrank\DateBlocker\DateRestrictions\Rules\CheckingAdvanceRestrictions;
-use Paxrank\DateBlocker\DateRestrictions\Rules\CheckingBlockedRanges;
-use Paxrank\DateBlocker\DateRestrictions\Rules\CheckingWeekdayRestrictions;
+use Paxrank\DateBlocker\Rules\CheckingAdvanceRestrictions;
+use Paxrank\DateBlocker\Rules\CheckingBlockedRanges;
+use Paxrank\DateBlocker\Rules\CheckingWeekdayRestrictions;
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;

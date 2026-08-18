@@ -8,7 +8,7 @@
  * @package Paxrank\DateBlocker
  */
 
-use Paxrank\DateBlocker\DateRestrictions\Database\RestrictionsTableSchema;
+use Paxrank\DateBlocker\Database\RestrictionsTableSchema;
 
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
     exit;

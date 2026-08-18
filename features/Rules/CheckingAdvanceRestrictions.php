@@ -5,9 +5,9 @@
  * @package Paxrank\DateBlocker
  */
 
-namespace Paxrank\DateBlocker\DateRestrictions\Rules;
+namespace Paxrank\DateBlocker\Rules;
 
-use Paxrank\DateBlocker\DateRestrictions\Database\ReadingAdvanceRestrictions;
+use Paxrank\DateBlocker\Database\ReadingAdvanceRestrictions;
 use Paxrank\DateBlocker\Shared\DateFormat;
 
 if ( ! defined( 'ABSPATH' ) ) {

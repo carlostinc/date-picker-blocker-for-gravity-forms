@@ -1,4 +1,4 @@
-# DateRestrictions Feature
+# Date Restrictions (the plugin's only feature)
 
 ## Overview
 Blocks/restricts date selection in Gravity Forms date fields — both client-side
@@ -12,21 +12,31 @@ recognized-field list all ship in the payload, so the JS never re-derives
 server semantics.
 
 ## Structure
-Classes live in `Paxrank\DateBlocker\DateRestrictions\...` (sub-namespace =
-folder) and are resolved lazily by the plugin's PSR-4 autoloader
-(`autoload.php` at the plugin root) — there is no require list. File name ==
-class name, so the verb-noun files ARE the class names (action classes:
+Everything here hangs directly off `features/`: the plugin only ever grew one
+slice, so there is no per-slice folder. Classes live in
+`Paxrank\DateBlocker\...` (sub-namespace = folder under `features/`, which is
+itself absent from the namespace) and are resolved lazily by the plugin's PSR-4
+autoloader (`autoload.php` at the plugin root) — there is no require list. File
+name == class name, so the verb-noun files ARE the class names (action classes:
 `ReadingBlockedRanges::all()`, `SavingBlockedRanges::add()`).
 
-- `DateRestrictionsHandler.php` — wires the slice's hooks.
+The autoloader's two roots overlap (`Shared\` sits inside the plugin root
+namespace), so it only stops once a file is actually found — a prefix match
+alone is not proof the class lives under that root.
+
+- `DateRestrictionsHandler.php` — wires the feature's hooks; namespaced at the
+  plugin root (`Paxrank\DateBlocker`).
 - `Database/` — schema (with the `end_date` range column + DB-version gate),
   the `Reading*`/`Saving*` classes for each table (atomic
   `INSERT ... WHERE NOT EXISTS` guards), and `CleaningUpOnFormDelete.php`
   (drops a form's/field's rows on permanent GF deletion).
 - `Rules/` — `Checking*` classes: the date logic + user-facing message per type.
-- `Enforcement/` — `gform_validation` (parses each submitted value with the
-  FIELD's own GF date format; `get_input_type()` so inputType-date fields are
-  covered too).
+- `Enforcement/` — `gform_field_validation`, GF's per-field filter: GF hands
+  over the value it already composed (a string for the single-input picker, a
+  positional array for the three-input/dropdown variants), parsed with
+  `GFCommon::parse_date()`, so no superglobal is read. GF never fires it for
+  fields hidden by conditional logic or on other pages of a multi-page form.
+  `get_input_type()` means inputType-date fields are covered too.
 - `Frontend/` — enqueue + `date-blocker.js` (range-aware) + `date-blocker.css`,
   plus `DeterminingWhereToLoad.php` (the load gate).
   Datepicker options are injected via GF's `gform_datepicker_options_pre_init`
@@ -79,14 +89,15 @@ The visual layer never blocks a (form, field) pair absent from `forms[..].fields
 - `Shared/GravityForms.php` — GFAPI wrappers (`get_input_type()`-based field
   discovery).
 
-No cross-slice dependencies: this is the plugin's only feature slice.
+`Shared/` lives at the plugin root, outside `features/`: it is not a feature.
 
 ## Hooks / filters provided
 - `paxrank_gf_date_blocker_should_load` — filter the frontend load gate.
 - `do_action('paxrank_gf_date_blocker_init')` — fired from the bootstrap.
 
 ## Hooks consumed (Gravity Forms)
-- `gform_validation` — authoritative server-side enforcement.
+- `gform_field_validation` — authoritative server-side enforcement (per field).
+- `gform_pre_validation` — clears the per-form failure flag before each run.
 - `gform_form_tag` — rendered-form collector (no output).
 - `gform_after_delete_form` / `gform_after_delete_field` — orphan cleanup.
 - JS: `gform_datepicker_options_pre_init`, `gform_post_render`.

@@ -8,6 +8,11 @@
  * class name, so every class loads lazily on first use and no require list
  * has to be maintained by hand.
  *
+ * The roots overlap — Shared\ sits inside the plugin root namespace — so a
+ * prefix matching is not proof the class lives there. Hence the loop only
+ * stops once a file is actually found, and keeps trying the remaining roots
+ * otherwise. That makes resolution independent of the array's order.
+ *
  * @package Paxrank\DateBlocker
  */
 
@@ -22,9 +27,11 @@ spl_autoload_register(
         static $roots = null;
 
         if ( null === $roots ) {
+            // Most specific prefix first, so the common case resolves on the
+            // first pass; correctness no longer depends on this order.
             $roots = array(
-                'Paxrank\\DateBlocker\\DateRestrictions\\' => __DIR__ . '/features/DateRestrictions/',
-                'Paxrank\\DateBlocker\\Shared\\'           => __DIR__ . '/Shared/',
+                'Paxrank\\DateBlocker\\Shared\\' => __DIR__ . '/Shared/',
+                'Paxrank\\DateBlocker\\'         => __DIR__ . '/features/',
             );
         }
 
@@ -35,9 +42,9 @@ spl_autoload_register(
 
                 if ( is_file( $file ) ) {
                     require $file;
-                }
 
-                return;
+                    return;
+                }
             }
         }
     }

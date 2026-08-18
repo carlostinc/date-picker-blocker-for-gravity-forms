@@ -18,8 +18,7 @@
 
 namespace Paxrank\DateBlocker;
 
-use Paxrank\DateBlocker\DateRestrictions\Database\RestrictionsTableSchema;
-use Paxrank\DateBlocker\DateRestrictions\DateRestrictionsHandler;
+use Paxrank\DateBlocker\Database\RestrictionsTableSchema;
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
