@@ -38,6 +38,16 @@ de dos límites del análisis estático.
 - **Requiere WordPress 6.2 o superior** (antes 6.0), que es donde se introdujo el
   placeholder `%i`.
 
+### Empaquetado
+- **Fuera los archivos de traducción del paquete** (`.po`, `.mo` y la plantilla
+  `.pot`), a petición de la revisión de WordPress.org. Los plugins alojados en
+  .org reciben sus traducciones por translate.wordpress.org, que las genera para
+  todos los idiomas, admite contribuciones de la comunidad y las distribuye por
+  el sistema estándar de actualizaciones. La internacionalización del código no
+  cambia: el `Text Domain` se conserva, y es lo que asocia el proyecto en
+  GlotPress. Se retira el header `Domain Path`, que ya no apunta a nada.
+- La traducción al español sigue en el historial de Git y su destino es GlotPress.
+
 ## [1.0.0] - 2026-08-12
 
 Primera versión pública. Todo el trabajo anterior fue iteración previa al
@@ -83,7 +93,7 @@ lanzamiento y se consolidó en esta entrega.
   estándar de WordPress).
 - Formato de fecha configurable, panel de debug y borrado de datos opcional al
   desinstalar.
-- Totalmente traducible, con traducción al español (es_ES) incluida.
+- Totalmente traducible; las traducciones se entregan vía translate.wordpress.org.
 
 ---
 

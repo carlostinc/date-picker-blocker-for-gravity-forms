@@ -40,7 +40,7 @@ The two ways scopes combine are deliberately different, because the rules mean d
 * A global date format setting (DD/MM/YYYY, MM/DD/YYYY, YYYY-MM-DD and dashed variants) controls how dates are shown and entered in the admin.
 * Every restriction can carry a description, and the list shows who created it and when.
 * Uninstall is opt-in. Your data is kept unless you explicitly tick the box that deletes it.
-* Fully translatable, with a Spanish (es_ES) translation included.
+* Fully translatable, with translations delivered through translate.wordpress.org.
 
 = Developer hooks =
 
@@ -92,6 +92,7 @@ Only the visual layer. The restrictions the date picker greys out are printed in
 * Nonce verification in the admin handlers moved inline, so it sits in the same scope as the request data it protects. Behaviour is unchanged.
 * Form-scoped frontend queries now bind their form list to a single placeholder, replacing the dynamically built `IN ()` clause.
 * Minimum WordPress version raised to 6.2, which is where the `%i` placeholder was introduced.
+* Bundled translation files removed. Translations are now delivered through translate.wordpress.org, which generates them for every locale and ships them via the standard update system.
 
 = 1.0.0 =
 * Initial release.
@@ -103,4 +104,4 @@ Only the visual layer. The restrictions the date picker greys out are printed in
 * Unavailable dates are greyed out in the date picker, and every submission is re-validated on the server, so the rules hold even without JavaScript.
 * Dates are parsed with each field's own Gravity Forms date format, and "today" follows your site's timezone.
 * Configurable admin date format, a debug panel, and opt-in data removal on uninstall.
-* Fully translatable, with a Spanish (es_ES) translation included.
+* Fully translatable, with translations delivered through translate.wordpress.org.

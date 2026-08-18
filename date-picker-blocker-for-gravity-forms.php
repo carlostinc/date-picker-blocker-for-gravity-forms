@@ -7,7 +7,6 @@
  * Author: Carlos Tinca
  * Author URI: https://paxrank.com
  * Text Domain: date-picker-blocker-for-gravity-forms
- * Domain Path: /languages
  * Requires at least: 6.2
  * Tested up to: 7.0
  * Requires PHP: 8.0
