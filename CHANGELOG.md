@@ -34,6 +34,30 @@ de dos límites del análisis estático.
   producía 29 falsos positivos. Los helpers conservan la comprobación de
   capability. El comportamiento —y la protección— no cambian.
 
+### Validación en el servidor
+- **Corregido un bypass real en los campos de fecha multi-parte.** Gravity Forms
+  envía las variantes de tres inputs y de desplegables (`datefield` /
+  `datedropdown`) como un array (`input_5[]`), no como las claves
+  `input_5_1/_2/_3` que esperaba el parseo propio; `sanitize_text_field()` sobre
+  un array devuelve `''` y el campo se saltaba la validación del servidor. Con
+  JS desactivado, POST directo o envíos por la API de Gravity Forms, una fecha
+  bloqueada se aceptaba. El JS del navegador sí cubría los tres tipos — por eso
+  nunca se vio en pruebas manuales.
+- **La validación migró de `gform_validation` a `gform_field_validation`**, el
+  punto de extensión canónico por campo: Gravity Forms entrega el valor ya
+  compuesto por `GFFormsModel::get_field_value()` y el plugin ya no lee `$_POST`
+  en absoluto, que era el aviso del equipo de revisión. El parseo pasa a
+  `GFCommon::parse_date()` + `checkdate` — el mismo par que usa el propio GF —
+  así que plugin y GF aceptan exactamente las mismas fechas (el parseo propio
+  era más estricto y descartaba en silencio fechas que GF admite).
+- La validación ahora respeta los campos ocultos por lógica condicional y las
+  páginas de los formularios multipágina, porque GF los excluye antes de
+  disparar el filtro. Antes, un valor obsoleto en un campo oculto podía dejar
+  un formulario imposible de enviar.
+- Los handlers del admin leen cada input junto a su verificación de nonce; se
+  eliminó el helper `optional_int()` y los helpers de formato de fecha que el
+  parseo propio hacía necesarios.
+
 ### Compatibilidad
 - **Requiere WordPress 6.2 o superior** (antes 6.0), que es donde se introdujo el
   placeholder `%i`.

@@ -3,7 +3,14 @@
  * Server-side enforcement: reject submissions with blocked dates.
  *
  * This is the authoritative blocking mechanism (the frontend JS is only a
- * UX enhancement). Runs on gform_validation across every date field.
+ * UX enhancement). Hooks gform_field_validation, Gravity Forms' per-field
+ * validation filter: GF hands this class the submitted value already
+ * composed by GFFormsModel::get_field_value() — a string for single-input
+ * date pickers, a positional array for the three-input and dropdown
+ * variants — so no superglobal is ever read here. The filter also runs
+ * after GF's own field validation and is never fired for fields hidden by
+ * conditional logic or sitting on other pages of a multi-page form, which
+ * this class inherits for free.
  *
  * @package Paxrank\DateBlocker
  */
@@ -13,8 +20,6 @@ namespace Paxrank\DateBlocker\DateRestrictions\Enforcement;
 use Paxrank\DateBlocker\DateRestrictions\Rules\CheckingAdvanceRestrictions;
 use Paxrank\DateBlocker\DateRestrictions\Rules\CheckingBlockedRanges;
 use Paxrank\DateBlocker\DateRestrictions\Rules\CheckingWeekdayRestrictions;
-use Paxrank\DateBlocker\Shared\GravityForms;
-use DateTime;
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
@@ -40,63 +45,76 @@ class ValidatingSubmittedDates {
      * @return void
      */
     public static function register(): void {
-        add_filter( 'gform_validation', array( __CLASS__, 'validate' ), 10, 1 );
+        add_filter( 'gform_field_validation', array( __CLASS__, 'validate_field' ), 10, 4 );
+        add_filter( 'gform_pre_validation', array( __CLASS__, 'reset_form_flag' ) );
         add_filter( 'gform_validation_message', array( __CLASS__, 'message' ), 10, 2 );
     }
 
     /**
-     * Validate all date fields of the submitted form.
+     * Clear the failed flag before a form's validation run starts.
      *
-     * @param array $validation_result Gravity Forms validation result.
+     * A stale flag from an earlier validation of this same form (long-lived
+     * processes, tests) must not leak into the next run.
+     *
+     * @param array $form Gravity Forms form.
      * @return array
      */
-    public static function validate( $validation_result ) {
-        $form = $validation_result['form'];
-
-        // A stale flag from an earlier validation of this same form (long-lived
-        // processes, tests) must not leak into this run.
-        unset( self::$failed_forms[ (int) $form['id'] ] );
-
-        // Gravity Forms fields are objects, so mutating $field->* updates the
-        // same instance held in $form['fields'] (no by-reference loop needed).
-        foreach ( $form['fields'] as $field ) {
-            if ( 'date' !== $field->get_input_type() ) {
-                continue;
-            }
-
-            // Parse using the field's OWN date format (not the plugin's global
-            // setting) so a per-field format or a dmy dropdown cannot slip a
-            // blocked date past validation. Genuinely unparseable/empty values
-            // are skipped — those cannot be a real calendar date, and Gravity
-            // Forms' own field validation rejects malformed input.
-            $date = self::read_posted_date( $field );
-
-            if ( '' === $date ) {
-                continue;
-            }
-
-            $failure = self::first_failing_message( $date, (int) $form['id'], (int) $field->id );
-
-            if ( null !== $failure ) {
-                $validation_result['is_valid'] = false;
-                $field->failed_validation      = true;
-                $field->validation_message     = $failure;
-
-                self::$failed_forms[ (int) $form['id'] ] = true;
-            }
+    public static function reset_form_flag( $form ) {
+        if ( isset( $form['id'] ) ) {
+            unset( self::$failed_forms[ (int) $form['id'] ] );
         }
 
-        $validation_result['form'] = $form;
+        return $form;
+    }
 
-        return $validation_result;
+    /**
+     * Validate one date field's submitted value against the restriction rules.
+     *
+     * @param array  $result Validation result: is_valid + message.
+     * @param mixed  $value  Submitted value, composed by GF (string or array).
+     * @param array  $form   Gravity Forms form.
+     * @param object $field  Gravity Forms field.
+     * @return array
+     */
+    public static function validate_field( $result, $value, $form, $field ) {
+        // GF already rejected this field (required-empty, malformed date…):
+        // keep its verdict and its message.
+        if ( ! is_array( $result ) || empty( $result['is_valid'] ) ) {
+            return $result;
+        }
+
+        if ( ! is_object( $field ) || 'date' !== $field->get_input_type() ) {
+            return $result;
+        }
+
+        $date = self::to_ymd( $value, $field );
+
+        // Empty or not a real calendar date: nothing to check. An empty
+        // optional field is fine, and GF's own field validation owns the
+        // malformed-input message.
+        if ( '' === $date ) {
+            return $result;
+        }
+
+        $form_id = isset( $form['id'] ) ? (int) $form['id'] : 0;
+        $failure = self::first_failing_message( $date, $form_id, (int) $field->id );
+
+        if ( null !== $failure ) {
+            $result['is_valid'] = false;
+            $result['message']  = $failure;
+
+            self::$failed_forms[ $form_id ] = true;
+        }
+
+        return $result;
     }
 
     /**
      * Replace the form-level message when a date restriction failed.
      *
-     * Reads the flag recorded during validate() instead of matching on the
-     * message text, which would break under translation and only ever caught
-     * two of the four rule messages.
+     * Reads the flag recorded during validate_field() instead of matching on
+     * the message text, which would break under translation and only ever
+     * caught two of the four rule messages.
      *
      * @param string $message Current validation message.
      * @param array  $form    Gravity Forms form.
@@ -139,83 +157,40 @@ class ValidatingSubmittedDates {
     }
 
     /**
-     * Read the submitted date for a field and return canonical Y-m-d (or '').
+     * Canonical Y-m-d from a GF-composed submission value, or '' when
+     * empty or not a real date.
      *
-     * Parses using the field's OWN Gravity Forms date format: the single-input
-     * value with the field's PHP format, and the `_1/_2/_3` sub-inputs in the
-     * field's own order. Gravity Forms owns the submission nonce; this only
-     * reads the field value.
+     * GFCommon::parse_date() understands both shapes GF submits: the
+     * single-input string in the field's own format, and the positional
+     * array of the three-input/dropdown variants (ordered by the field's
+     * format). The guards mirror GF_Field_Date::checkdate(), so this accepts
+     * exactly the dates GF itself considers valid.
      *
+     * @param mixed  $value Submitted value (string or array).
      * @param object $field Gravity Forms date field.
-     * @return string Canonical Y-m-d, or '' when absent/invalid.
+     * @return string Y-m-d, or '' when absent/invalid.
      */
-    private static function read_posted_date( $field ): string {
-        $id    = (int) $field->id;
-        $token = GravityForms::field_date_format( $field );
+    private static function to_ymd( $value, $field ): string {
+        $format = ! empty( $field->dateFormat ) ? (string) $field->dateFormat : 'mdy';
+        $date   = \GFCommon::parse_date( $value, $format );
 
-        // phpcs:disable WordPress.Security.NonceVerification.Missing -- Gravity Forms owns the submission nonce and has already verified it before firing gform_validation; this only reads the field value, unslashed and sanitized.
-        $single = 'input_' . $id;
-        if ( ! empty( $_POST[ $single ] ) ) {
-            $raw = sanitize_text_field( wp_unslash( $_POST[ $single ] ) );
-
-            return self::single_to_ymd( $raw, $token );
-        }
-
-        $p1 = 'input_' . $id . '_1';
-        $p2 = 'input_' . $id . '_2';
-        $p3 = 'input_' . $id . '_3';
-
-        if ( ! empty( $_POST[ $p1 ] ) && ! empty( $_POST[ $p2 ] ) && ! empty( $_POST[ $p3 ] ) ) {
-            $order = GravityForms::subinput_order_for( $token );
-            $parts = array(
-                $order[0] => (int) sanitize_text_field( wp_unslash( $_POST[ $p1 ] ) ),
-                $order[1] => (int) sanitize_text_field( wp_unslash( $_POST[ $p2 ] ) ),
-                $order[2] => (int) sanitize_text_field( wp_unslash( $_POST[ $p3 ] ) ),
-            );
-
-            return self::parts_to_ymd( $parts['y'] ?? 0, $parts['m'] ?? 0, $parts['d'] ?? 0 );
-        }
-        // phpcs:enable WordPress.Security.NonceVerification.Missing
-
-        return '';
-    }
-
-    /**
-     * Parse a single-input value (field format, then ISO fallback) to Y-m-d.
-     *
-     * @param string $raw   Raw submitted value.
-     * @param string $token GF dateFormat token.
-     * @return string Y-m-d, or '' when invalid.
-     */
-    private static function single_to_ymd( string $raw, string $token ): string {
-        $raw = trim( $raw );
-        if ( '' === $raw ) {
+        if ( empty( $date ) ) {
             return '';
         }
 
-        foreach ( array( GravityForms::php_format_for( $token ), 'Y-m-d' ) as $format ) {
-            $date = DateTime::createFromFormat( $format, $raw );
-            if ( $date && $date->format( $format ) === $raw ) {
-                return $date->format( 'Y-m-d' );
-            }
-        }
+        $month = $date['month'] ?? '';
+        $day   = $date['day'] ?? '';
+        $year  = $date['year'] ?? '';
 
-        return '';
-    }
-
-    /**
-     * Build a canonical Y-m-d from integer parts, or '' when not a real date.
-     *
-     * @param int $year  Year.
-     * @param int $month Month.
-     * @param int $day   Day.
-     * @return string
-     */
-    private static function parts_to_ymd( int $year, int $month, int $day ): string {
-        if ( ! checkdate( $month, $day, $year ) ) {
+        // Same guards as GF_Field_Date::checkdate(): numeric parts, 4-digit year.
+        if ( ! is_numeric( $month ) || ! is_numeric( $day ) || ! is_numeric( $year ) || 4 !== strlen( (string) $year ) ) {
             return '';
         }
 
-        return sprintf( '%04d-%02d-%02d', $year, $month, $day );
+        if ( ! checkdate( (int) $month, (int) $day, (int) $year ) ) {
+            return '';
+        }
+
+        return sprintf( '%04d-%02d-%02d', (int) $year, (int) $month, (int) $day );
     }
 }

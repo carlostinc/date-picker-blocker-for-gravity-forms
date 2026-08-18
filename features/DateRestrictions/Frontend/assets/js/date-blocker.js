@@ -630,7 +630,8 @@
 
     /**
      * GF dateFormat token => semantic order of the three date parts.
-     * Mirrors GF_PHP_FORMATS on the server.
+     * Mirrors the format tokens Gravity Forms defines for its date fields
+     * (the server parses them with GFCommon::parse_date()).
      */
     var GF_TOKEN_ORDERS = {
         mdy: ['m', 'd', 'y'],

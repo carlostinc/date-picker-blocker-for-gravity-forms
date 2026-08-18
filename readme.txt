@@ -93,6 +93,9 @@ Only the visual layer. The restrictions the date picker greys out are printed in
 * Form-scoped frontend queries now bind their form list to a single placeholder, replacing the dynamically built `IN ()` clause.
 * Minimum WordPress version raised to 6.2, which is where the `%i` placeholder was introduced.
 * Bundled translation files removed. Translations are now delivered through translate.wordpress.org, which generates them for every locale and ships them via the standard update system.
+* Fixed: server-side validation now hooks `gform_field_validation` and reads the value Gravity Forms has already composed, so three-input and dropdown date fields are genuinely validated on the server — previously only the browser-side script protected them.
+* Server-side validation now skips fields hidden by conditional logic and fields on other pages of multi-page forms, matching Gravity Forms' own validation.
+* Admin handlers read request input alongside their nonce verification.
 
 = 1.0.0 =
 * Initial release.

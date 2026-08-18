@@ -91,16 +91,6 @@ class HandlingRestrictionsAjax {
     }
 
     /**
-     * Read an optional positive integer POST value, or null.
-     *
-     * @param string $key POST key.
-     * @return int|null
-     */
-    private static function optional_int( string $key ): ?int {
-        return ! empty( $_POST[ $key ] ) ? (int) $_POST[ $key ] : null; // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Callers run check_admin_referer() first.
-    }
-
-    /**
      * Add a blocked date or range.
      *
      * @return void
@@ -111,8 +101,8 @@ class HandlingRestrictionsAjax {
 
         $start_raw   = isset( $_POST['blocked_date'] ) ? sanitize_text_field( wp_unslash( $_POST['blocked_date'] ) ) : '';
         $end_raw     = isset( $_POST['end_date'] ) ? sanitize_text_field( wp_unslash( $_POST['end_date'] ) ) : '';
-        $form_id     = self::optional_int( 'gravity_form_id' );
-        $field_id    = self::optional_int( 'date_field_id' );
+        $form_id     = ! empty( $_POST['gravity_form_id'] ) ? (int) $_POST['gravity_form_id'] : null;
+        $field_id    = ! empty( $_POST['date_field_id'] ) ? (int) $_POST['date_field_id'] : null;
         $description = isset( $_POST['description'] ) ? sanitize_text_field( wp_unslash( $_POST['description'] ) ) : '';
 
         if ( '' === $start_raw ) {
@@ -191,8 +181,8 @@ class HandlingRestrictionsAjax {
         self::require_manage_options();
 
         $advance_days = isset( $_POST['advance_days'] ) ? (int) $_POST['advance_days'] : 0;
-        $form_id      = self::optional_int( 'gravity_form_id' );
-        $field_id     = self::optional_int( 'date_field_id' );
+        $form_id      = ! empty( $_POST['gravity_form_id'] ) ? (int) $_POST['gravity_form_id'] : null;
+        $field_id     = ! empty( $_POST['date_field_id'] ) ? (int) $_POST['date_field_id'] : null;
         $description  = isset( $_POST['description'] ) ? sanitize_text_field( wp_unslash( $_POST['description'] ) ) : '';
 
         if ( $advance_days < 0 || $advance_days > 365 ) {
@@ -236,8 +226,8 @@ class HandlingRestrictionsAjax {
 
         $weekdays    = isset( $_POST['blocked_weekdays'] ) ? array_map( 'intval', (array) wp_unslash( $_POST['blocked_weekdays'] ) ) : array();
         $weekdays    = array_values( array_unique( array_filter( $weekdays, static fn( $d ) => $d >= 0 && $d <= 6 ) ) );
-        $form_id     = self::optional_int( 'gravity_form_id' );
-        $field_id    = self::optional_int( 'date_field_id' );
+        $form_id     = ! empty( $_POST['gravity_form_id'] ) ? (int) $_POST['gravity_form_id'] : null;
+        $field_id    = ! empty( $_POST['date_field_id'] ) ? (int) $_POST['date_field_id'] : null;
         $description = isset( $_POST['description'] ) ? sanitize_text_field( wp_unslash( $_POST['description'] ) ) : '';
 
         if ( empty( $weekdays ) ) {
