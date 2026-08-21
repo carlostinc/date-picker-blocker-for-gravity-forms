@@ -3,7 +3,7 @@
  * Plugin Name: Date Picker Blocker for Gravity Forms
  * Plugin URI: https://paxrank.com/
  * Description: Block dates, date ranges, weekdays and minimum advance notice in Gravity Forms date fields, globally or per form and field.
- * Version: 1.0.1
+ * Version: 1.0.0
  * Author: Carlos Tinca
  * Author URI: https://paxrank.com
  * Text Domain: date-picker-blocker-for-gravity-forms
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'PAXRANK_GF_DATE_BLOCKER_VERSION', '1.0.1' );
+define( 'PAXRANK_GF_DATE_BLOCKER_VERSION', '1.0.0' );
 define( 'PAXRANK_GF_DATE_BLOCKER_PLUGIN_FILE', __FILE__ );
 define( 'PAXRANK_GF_DATE_BLOCKER_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'PAXRANK_GF_DATE_BLOCKER_PLUGIN_URL', plugin_dir_url( __FILE__ ) );

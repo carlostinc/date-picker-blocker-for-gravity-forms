@@ -5,94 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0.1] - 2026-08-14
-
-Pasada de cumplimiento con el Plugin Checker de WordPress.org: 87 avisos a cero,
-sin cambios de comportamiento. Ninguno era una vulnerabilidad real; todos venían
-de dos límites del análisis estático.
-
-### Base de datos
-- **Los nombres de tabla se enlazan con el placeholder `%i`** de
-  `$wpdb->prepare()` en lugar de interpolarse en la cadena SQL. Esto elimina de
-  raíz los avisos `UnescapedDBParameter` e `InterpolatedNotPrepared`, en vez de
-  silenciarlos: el sniff solo audita el primer parámetro de `prepare()`, así que
-  pasar la tabla como argumento la deja fuera de la superficie de análisis.
-- **`form_scope_where()` pasa a ser `form_scope_csv()`.** La cláusula `IN ()` de
-  longitud variable obligaba a construir los `%d` dentro del SQL; ahora los IDs
-  de formulario viajan como CSV enlazado a un único `%s` y se filtran con
-  `FIND_IN_SET()`, de modo que las consultas de `for_js()` son literales
-  completas. Equivalente en resultados: las filas globales las sigue cubriendo
-  la rama `gravity_form_id IS NULL`, y una lista vacía sigue devolviendo solo
-  las globales.
-- Los `$wpdb->update()` / `delete()` sobre tablas propias del plugin llevan ya la
-  justificación de consulta directa que les faltaba.
-
-### Seguridad
-- **La verificación de nonce vuelve al cuerpo de cada handler** de admin-post y
-  AJAX, en lugar de vivir en un helper. PHPCS solo la reconoce cuando está en el
-  mismo scope que los datos de la petición que protege, así que centralizarla
-  producía 29 falsos positivos. Los helpers conservan la comprobación de
-  capability. El comportamiento —y la protección— no cambian.
-
-### Validación en el servidor
-- **Corregido un bypass real en los campos de fecha multi-parte.** Gravity Forms
-  envía las variantes de tres inputs y de desplegables (`datefield` /
-  `datedropdown`) como un array (`input_5[]`), no como las claves
-  `input_5_1/_2/_3` que esperaba el parseo propio; `sanitize_text_field()` sobre
-  un array devuelve `''` y el campo se saltaba la validación del servidor. Con
-  JS desactivado, POST directo o envíos por la API de Gravity Forms, una fecha
-  bloqueada se aceptaba. El JS del navegador sí cubría los tres tipos — por eso
-  nunca se vio en pruebas manuales.
-- **La validación migró de `gform_validation` a `gform_field_validation`**, el
-  punto de extensión canónico por campo: Gravity Forms entrega el valor ya
-  compuesto por `GFFormsModel::get_field_value()` y el plugin ya no lee `$_POST`
-  en absoluto, que era el aviso del equipo de revisión. El parseo pasa a
-  `GFCommon::parse_date()` + `checkdate` — el mismo par que usa el propio GF —
-  así que plugin y GF aceptan exactamente las mismas fechas (el parseo propio
-  era más estricto y descartaba en silencio fechas que GF admite).
-- La validación ahora respeta los campos ocultos por lógica condicional y las
-  páginas de los formularios multipágina, porque GF los excluye antes de
-  disparar el filtro. Antes, un valor obsoleto en un campo oculto podía dejar
-  un formulario imposible de enviar.
-- Los handlers del admin leen cada input junto a su verificación de nonce; se
-  eliminó el helper `optional_int()` y los helpers de formato de fecha que el
-  parseo propio hacía necesarios.
-
-### Compatibilidad
-- **Requiere WordPress 6.2 o superior** (antes 6.0), que es donde se introdujo el
-  placeholder `%i`.
-
-### Arquitectura
-- **`features/DateRestrictions/` se aplana en `features/`.** La arquitectura
-  Vertical Slice preveía varias slices, pero solo llegó a existir una: ese nivel
-  intermedio era una carpeta con un único hijo y un segmento de namespace que no
-  distinguía de nada. `Admin/`, `Database/`, `Enforcement/`, `Frontend/` y
-  `Rules/` cuelgan ahora directamente de `features/`, y el namespace acompaña al
-  movimiento (`Paxrank\DateBlocker\Admin`, `…\Database`, …), con el handler en
-  la raíz `Paxrank\DateBlocker`. `Shared/` no se mueve: no es una feature.
-- **El autoloader deja de depender del orden de sus raíces.** Al aplanar, los
-  prefijos pasan a solaparse (`Paxrank\DateBlocker\` contiene a
-  `…\DateBlocker\Shared\`) y el bucle abandonaba en cuanto un prefijo coincidía,
-  encontrase o no el archivo — con lo que `Shared\DateFormat` se habría buscado
-  solo en `features/Shared/` y habría fallado. Ahora solo se detiene cuando
-  encuentra el archivo de verdad, y sigue probando las demás raíces si no.
-- Cambio puramente interno: no varían el comportamiento ni los nombres públicos
-  (tablas, opciones, nonces, acciones `admin_post_*`, globals JS).
-
-### Empaquetado
-- **Fuera los archivos de traducción del paquete** (`.po`, `.mo` y la plantilla
-  `.pot`), a petición de la revisión de WordPress.org. Los plugins alojados en
-  .org reciben sus traducciones por translate.wordpress.org, que las genera para
-  todos los idiomas, admite contribuciones de la comunidad y las distribuye por
-  el sistema estándar de actualizaciones. La internacionalización del código no
-  cambia: el `Text Domain` se conserva, y es lo que asocia el proyecto en
-  GlotPress. Se retira el header `Domain Path`, que ya no apunta a nada.
-- La traducción al español sigue en el historial de Git y su destino es GlotPress.
-
-## [1.0.0] - 2026-08-12
+## [1.0.0] - 2026-08-21
 
 Primera versión pública. Todo el trabajo anterior fue iteración previa al
-lanzamiento y se consolidó en esta entrega.
+lanzamiento —incluida la pasada de cumplimiento con el Plugin Checker de
+WordPress.org y la revisión del equipo del repositorio— y se consolidó en esta
+entrega. Ninguna versión anterior llegó a publicarse.
 
 ### Funcionalidad
 - **Fechas y rangos bloqueados** en campos de fecha de Gravity Forms: un día
@@ -106,11 +24,26 @@ lanzamiento y se consolidó en esta entrega.
 - Soporte para las tres presentaciones del campo Date de Gravity Forms:
   datepicker, input de texto y desplegables día/mes/año.
 
-### Arquitectura
+### Validación en el servidor
 - **El navegador es UX, el servidor es autoridad.** Las fechas no disponibles se
   agrisan en el datepicker vía el filtro oficial
-  `gform_datepicker_options_pre_init`, y cada envío se revalida en
-  `gform_validation`, de modo que las reglas se sostienen aun sin JavaScript.
+  `gform_datepicker_options_pre_init`, y cada envío se revalida en el servidor,
+  de modo que las reglas se sostienen aun sin JavaScript.
+- **La validación se engancha a `gform_field_validation`**, el punto de
+  extensión canónico por campo de Gravity Forms. GF entrega el valor ya
+  compuesto por `GFFormsModel::get_field_value()` —una cadena para el datepicker
+  de input único, un array posicional para las variantes de tres inputs y de
+  desplegables—, así que el plugin no lee `$_POST` en ningún momento. El parseo
+  usa `GFCommon::parse_date()` + `checkdate`, el mismo par que emplea
+  `GF_Field_Date::validate()`, de modo que plugin y GF aceptan exactamente las
+  mismas fechas.
+- Al delegar en ese filtro, la validación hereda las exclusiones de GF: no toca
+  los campos ocultos por lógica condicional ni los de otras páginas en
+  formularios multipágina.
+- Parseo por **formato propio de cada campo** de Gravity Forms, no por el ajuste
+  global del plugin. "Hoy" se calcula en la zona horaria del sitio.
+
+### Frontend
 - **El cliente ejecuta decisiones ya resueltas por el servidor**: el payload
   lleva la antelación resuelta por campo, el offset horario del sitio y la
   lista de campos que el servidor reconoce. El JS nunca reimplementa la
@@ -118,16 +51,54 @@ lanzamiento y se consolidó en esta entrega.
 - El payload se emite **una sola vez**, solo en páginas que renderizan un
   formulario con campos de fecha, y solo con las filas de esos formularios más
   las globales. Las páginas sin formulario no ejecutan ninguna consulta.
-- Parseo por **formato propio de cada campo** de Gravity Forms (no el ajuste
-  global del plugin), con verificación de ida y vuelta que rechaza fechas
-  imposibles. "Hoy" se calcula en la zona horaria del sitio.
-- Escrituras atómicas (`INSERT ... WHERE NOT EXISTS`) y limpieza automática de
-  restricciones al borrar permanentemente un formulario o campo.
+
+### Base de datos
+- Tres tablas propias con escrituras atómicas
+  (`INSERT ... WHERE NOT EXISTS`) y limpieza automática de restricciones al
+  borrar permanentemente un formulario o campo.
+- **Los nombres de tabla se enlazan con el placeholder `%i`** de
+  `$wpdb->prepare()`, nunca interpolados en la cadena SQL. Además de ser más
+  seguro, deja los identificadores fuera de la superficie de análisis estático:
+  el sniff de escapado solo audita el primer parámetro de `prepare()`.
+- El filtrado por formulario del payload viaja como CSV enlazado a un único
+  `%s` y se resuelve con `FIND_IN_SET()`, en lugar de una cláusula `IN ()` de
+  longitud variable que obligaría a construir los `%d` dentro del SQL. Así toda
+  consulta del frontend es una cadena literal.
+
+### Seguridad
+- Cada handler de admin-post y AJAX verifica su nonce **en el cuerpo de la
+  propia función**, junto a los datos de la petición que protege, y lo combina
+  con `current_user_can( 'manage_options' )`. Los nonces de borrado incluyen el
+  ID de la fila en la acción, de modo que un nonce no sirve para borrar otra.
+- La capa de enforcement no lee superglobales en absoluto: recibe de Gravity
+  Forms el valor ya compuesto.
+
+### Compatibilidad
+- **Requiere WordPress 6.2 o superior**, que es donde se introdujo el
+  placeholder `%i` de `$wpdb->prepare()`.
+- Requiere PHP 8.0 o superior.
+
+### Arquitectura
 - **Namespaces PHP + autoload PSR-4.** Todas las clases viven en
   `Paxrank\DateBlocker\...` (el sub-namespace espeja la carpeta) y se cargan
   de forma perezosa vía `autoload.php` — sin listas de `require_once` y sin
-  prefijos `PaxRank_GF_`. Nombre de archivo == nombre de clase, y el plugin
-  queda con una sola slice (`features/DateRestrictions/`) más `Shared/`.
+  prefijos `PaxRank_GF_`. Nombre de archivo == nombre de clase.
+- Todo cuelga de `features/` (`Admin/`, `Database/`, `Enforcement/`,
+  `Frontend/`, `Rules/`) más `Shared/` en la raíz, que no es una feature. La
+  arquitectura Vertical Slice preveía varias slices, pero solo llegó a existir
+  una, así que no hay carpeta por slice.
+- Las dos raíces del autoloader se solapan (`Paxrank\DateBlocker\` contiene a
+  `…\DateBlocker\Shared\`), de modo que una coincidencia de prefijo no prueba
+  que la clase viva ahí: el bucle solo se detiene cuando encuentra el archivo de
+  verdad y sigue probando las demás raíces si no. La resolución no depende del
+  orden.
+
+### Empaquetado
+- **Sin archivos de traducción en el paquete.** Los plugins alojados en .org
+  reciben sus traducciones por translate.wordpress.org, que las genera para
+  todos los idiomas, admite contribuciones de la comunidad y las distribuye por
+  el sistema estándar de actualizaciones. El `Text Domain` se conserva: es lo
+  que asocia el proyecto en GlotPress.
 
 ### Administración
 - Pantalla bajo **Ajustes**, con formularios nativos (POST → redirect → aviso

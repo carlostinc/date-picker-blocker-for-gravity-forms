@@ -4,7 +4,7 @@ Tags: date picker, booking, blocked dates, form validation, availability
 Requires at least: 6.2
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 1.0.1
+Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -87,24 +87,15 @@ Only the visual layer. The restrictions the date picker greys out are printed in
 
 == Changelog ==
 
-= 1.0.1 =
-* Table names in every custom-table query are now bound through the `%i` identifier placeholder of `$wpdb->prepare()` instead of being interpolated into the SQL string.
-* Nonce verification in the admin handlers moved inline, so it sits in the same scope as the request data it protects. Behaviour is unchanged.
-* Form-scoped frontend queries now bind their form list to a single placeholder, replacing the dynamically built `IN ()` clause.
-* Minimum WordPress version raised to 6.2, which is where the `%i` placeholder was introduced.
-* Bundled translation files removed. Translations are now delivered through translate.wordpress.org, which generates them for every locale and ships them via the standard update system.
-* Fixed: server-side validation now hooks `gform_field_validation` and reads the value Gravity Forms has already composed, so three-input and dropdown date fields are genuinely validated on the server — previously only the browser-side script protected them.
-* Server-side validation now skips fields hidden by conditional logic and fields on other pages of multi-page forms, matching Gravity Forms' own validation.
-* Admin handlers read request input alongside their nonce verification.
-
 = 1.0.0 =
 * Initial release.
 * Block specific dates and full date ranges in Gravity Forms date fields.
 * Minimum advance notice restrictions, from 0 to 365 days. Past dates are always blocked.
 * Weekday restrictions: block one or more days of the week.
 * Every restriction can be scoped globally, to one form, or to one date field.
-* Works with all three Gravity Forms date presentations: date picker, text input, and day/month/year dropdowns.
+* Works with all three Gravity Forms date presentations: date picker, text input, and day/month/year dropdowns — every one of them enforced on the server, not just in the browser.
 * Unavailable dates are greyed out in the date picker, and every submission is re-validated on the server, so the rules hold even without JavaScript.
+* Validation runs through Gravity Forms' own per-field filter, so it reads each value exactly as Gravity Forms composed it and leaves fields hidden by conditional logic, or sitting on other pages of a multi-page form, alone.
 * Dates are parsed with each field's own Gravity Forms date format, and "today" follows your site's timezone.
 * Configurable admin date format, a debug panel, and opt-in data removal on uninstall.
 * Fully translatable, with translations delivered through translate.wordpress.org.
